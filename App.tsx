@@ -1,20 +1,42 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
 
-export default function App() {
+import AppStack from './src/components/AppStack';
+import AuthStack from './src/components/AuthStack';
+import store from './src/store/store';
+import { AuthProvider, useAuth } from './src/providers/AuthProvider';
+import { NavigationContainer } from '@react-navigation/native';
+import { Provider } from 'react-redux';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { ThemeProvider } from './src/providers/ThemeProvider';
+
+export type RootStackParamList = {
+  Main: undefined;
+  Settings: undefined;
+  Splash: undefined,
+  SignUp: undefined,
+  LogIn: undefined,
+  ForgotPassword: undefined,
+  PasswordChange: undefined,
+};
+
+const AppNavigation = () => {
+  const { session } = useAuth();
+  return (session && session.user ? <AppStack /> : <AuthStack />);
+}
+
+function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app! 💩</Text>
-      <StatusBar style="auto" />
-    </View>
+    <AuthProvider>
+      <ThemeProvider>
+        <Provider store={store}>
+          <SafeAreaProvider>
+            <NavigationContainer>
+              <AppNavigation />
+            </NavigationContainer>
+          </SafeAreaProvider>
+        </Provider>
+      </ThemeProvider>
+    </AuthProvider>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
