@@ -1,5 +1,5 @@
 import { expect, describe, it } from '@jest/globals'
-import getNextStatus, { Status } from './getNextStatus'
+import getNextStatus, { Status } from '../../src/services/getNextStatus'
 
 describe( 'getNextStatus', () => {
   it( 'should return PARTIAL when the current status is INCOMPLETE', () => {

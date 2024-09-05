@@ -12,7 +12,7 @@ import useAuth from './src/hooks/useAuth'
 /**
  * Determines visibility of features based on user authentication.
  */
-function AppNavigation(): ReactElement {
+export function AppNavigation(): ReactElement {
   const { session } = useAuth()
   return ( session && session.user ? <AppStack /> : <AuthStack /> )
 }

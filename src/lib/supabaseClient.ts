@@ -6,7 +6,7 @@ import { AppState } from 'react-native'
 const supabaseUrl = 'https://uybhrwvodlxtcfgfzezq.supabase.co'
 
 // @ts-expect-error @todo: expoConfig not being recognized in definition.
-const { SUPABASE_KEY } = Constants.expoConfig.extra
+const { SUPABASE_KEY = 'default-key' } = Constants.expoConfig.extra || {}
 
 const supabase = createClient( supabaseUrl, SUPABASE_KEY, {
   auth: {

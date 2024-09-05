@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { Todo, TodoList } from '../../types/todos'
 import todoReducers from '../reducers/todoReducers'
 
-interface TodosState {
+export interface TodosState {
   lists: TodoList[];
   todos: Todo[];
   status: 'idle' | 'loading' | 'succeeded' | 'failed';

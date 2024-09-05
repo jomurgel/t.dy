@@ -1,0 +1,47 @@
+import React from 'react'
+import { render } from '@testing-library/react-native'
+import { Provider } from 'react-redux'
+import { NavigationContainer } from '@react-navigation/native'
+import { SafeAreaProvider } from 'react-native-safe-area-context'
+import { jest, it, expect } from '@jest/globals'
+import { AppNavigation } from '../App'
+import store from '../src/redux/store'
+import useAuth from '../src/hooks/useAuth'
+
+jest.mock( '../src/hooks/useAuth', () => ( {
+  __esModule: true,
+  default: jest.fn(),
+} ) )
+
+it( 'renders AppStack when user is authenticated', () => {
+  ( useAuth as jest.Mock ).mockReturnValue( { session: { user: {} } } )
+
+  const { getByText } = render(
+    <Provider store={store}>
+      <SafeAreaProvider>
+        <NavigationContainer>
+          <AppNavigation />
+        </NavigationContainer>
+      </SafeAreaProvider>
+    </Provider>,
+  )
+  // Check for text that is unique to AppStack
+  expect( getByText( 'Main' ) ).toBeTruthy()
+} )
+
+it( 'renders AuthStack when user is not authenticated', () => {
+  ( useAuth as jest.Mock ).mockReturnValue( { session: null } )
+
+  const { getByText } = render(
+    <Provider store={store}>
+      <SafeAreaProvider>
+        <NavigationContainer>
+          <AppNavigation />
+        </NavigationContainer>
+      </SafeAreaProvider>
+    </Provider>,
+  )
+
+  // Check for text that is unique to AuthStack
+  expect( getByText( 'SignUp' ) ).toBeTruthy()
+} )
