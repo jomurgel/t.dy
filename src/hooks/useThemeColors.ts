@@ -1,18 +1,21 @@
-import { useContext } from "react";
-import ThemeContext from "../providers/ThemeProvider";
+import { useContext } from 'react'
+import { ThemeContext } from '../providers/ThemeProvider'
+import themeConfig from '../lib/themeConfig'
 
 const useThemeColors = () => {
-    const { theme } = useContext(ThemeContext);
+  const { theme } = useContext( ThemeContext )
 
-    let colors = ['rgba(246,215,148,0.5)', 'rgba(238,113,113,0.5)']
+  if ( theme === undefined ) {
+    throw new Error( 'useThemeColors must be used within an ThemeProvider' )
+  }
 
-    switch (theme) {
-        case 'dark':
-            colors = ['rgba(82, 229, 231,0.5)', 'rgba(19, 12, 183,0.5)'];
-            break;
-    }
+  switch ( theme ) {
+    case 'dark':
+      return themeConfig.backgroundColor.dark
 
-    return colors;
+    default:
+      return themeConfig.backgroundColor.light
+  }
 }
 
-export default useThemeColors;
+export default useThemeColors

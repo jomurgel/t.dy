@@ -1,41 +1,59 @@
-import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import React, {
+  createContext,
+  useEffect,
+  useMemo,
+  useState,
+  ReactNode,
+} from 'react'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
+enum Theme {
+  LIGHT = 'light',
+  DARK = 'dark',
+}
 
 type ThemeContextType = {
-    theme: string,
-    toggleTheme: (next: string) => void,
-};
+  theme: Theme
+  toggleTheme: ( next: Theme ) => void
+  setTheme: React.Dispatch<React.SetStateAction<Theme>>
+}
 
-const ThemeContext = createContext<ThemeContextType>(undefined);
+export const ThemeContext = createContext<ThemeContextType | undefined>( undefined )
 
-export const ThemeProvider = ({ children }: { children: ReactNode }) => {
-    const [theme, setTheme] = useState('light');
+/**
+ * Provides basic theme handling.
+ * @todo: add support for multiple themes.
+ */
+function ThemeProvider( { children }: { children: ReactNode } ) {
+  const [ theme, setTheme ] = useState<Theme>( Theme.LIGHT )
 
-    useEffect(() => {
-        const getTheme = async () => {
-            try {
-                const savedTheme = await AsyncStorage.getItem('theme');
-                if (savedTheme) {
-                    setTheme(savedTheme);
-                }
-            } catch (error) {
-                console.log('Error loading theme:', error);
-            }
-        };
-        getTheme();
-    }, []);
+  useEffect( () => {
+    const getTheme = async () => {
+      try {
+        const savedTheme = await AsyncStorage.getItem( 'theme' )
+        if ( savedTheme ) {
+          setTheme( savedTheme as Theme )
+        }
+      } catch ( error ) {
+        // eslint-disable-next-line no-console
+        console.log( 'Error loading theme:', error )
+      }
+    }
+    getTheme()
+  }, [] )
 
-    const toggleTheme = (next) => {
-        setTheme(next);
-        AsyncStorage.setItem('theme', next)
-    };
+  const toggleTheme = ( next: Theme ) => {
+    setTheme( next )
+    AsyncStorage.setItem( 'theme', next )
+  }
 
-    return (
-        <ThemeContext.Provider value={{ theme, toggleTheme }}>
-            {children}
-        </ThemeContext.Provider>
-    );
-};
+  const contextValue = useMemo( () => ( { theme, toggleTheme, setTheme } ), [ theme, setTheme ] )
 
-export default ThemeContext;
+  return (
+    <ThemeContext.Provider value={contextValue}>
+      {children}
+    </ThemeContext.Provider>
+  )
+}
+
+export default ThemeProvider
