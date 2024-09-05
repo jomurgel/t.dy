@@ -32,7 +32,9 @@ const todoReducers = ( builder ) => {
     } )
 
     // Update state when a list is removed.
+    // @todo: refactor the error out of these lines.
     .addCase( removeList.fulfilled, ( state, action ) => {
+      // eslint-disable-next-line no-param-reassign
       state.lists = state.lists.filter( ( list ) => list.id !== action.payload )
     } )
 
