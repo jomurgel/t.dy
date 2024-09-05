@@ -1,13 +1,18 @@
 module.exports = {
   preset: 'jest-expo',
-  setupFilesAfterEnv: ['./jest.setup.ts'],
+  setupFilesAfterEnv: ['@testing-library/jest-native/extend-expect'],
   transform: {
-    '^.+\\.tsx?$': 'ts-jest',
+    '^.+\\.tsx?$': [ 'ts-jest', {
+      jsx: 'react',
+      module: 'commonjs',
+      target: 'es6',
+      strict: true,
+      esModuleInterop: true,
+      skipLibCheck: true,
+      forceConsistentCasingInFileNames: true,
+      types: [ 'jest', 'node' ],
+    } ],
   },
   testPathIgnorePatterns: [ '/node_modules/', '/android/', '/ios/' ],
-  globals: {
-    'ts-jest': {
-      tsconfig: 'tsconfig.jest.json',
-    },
-  },
+  testEnvironment: 'node',
 }

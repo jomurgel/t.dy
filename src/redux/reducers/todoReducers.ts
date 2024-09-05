@@ -1,6 +1,6 @@
 import {
   fetchLists, removeList, addList, fetchTodosByListId, addTodo, removeTodo, toggleTodoStatus,
-} from './thunks/todoThunk'
+} from '../thunks/todoThunk'
 
 /**
  * Extra reducers for handling local state from Supabase.
