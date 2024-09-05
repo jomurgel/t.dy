@@ -23,5 +23,5 @@ testing library to place nice.
 Studio running respectively.
 
 ## Screens
-<center><img src="./assets/tdy-splash.png" width="450" alt="TDY Login Screen"></center>
-<center><img src="./assets/tdy-task-type.png" width="450" alt="TDY Task Screen"></center>
+<img src="./assets/tdy-splash.png" width="450" alt="TDY Login Screen">
+<img src="./assets/tdy-task-type.png" width="450" alt="TDY Task Screen">
