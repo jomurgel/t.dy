@@ -28,12 +28,14 @@ export default {
   input: {
     light: {
       ...inputShared,
+      borderColor: red,
       backgroundColor: white,
       textColor: red,
     },
     dark: {
       ...inputShared,
-      backgroundColor: darkBlue,
+      borderColor: darkBlue,
+      backgroundColor: white,
       textColor: white,
     },
   },

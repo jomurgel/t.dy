@@ -139,7 +139,7 @@ function ListScreen( { route }: Props ): ReactElement {
         />
 
         <TextInput
-          style={styles.input}
+          style={theme === 'light' ? styles.input : styles.inputDark}
           placeholder="New Todo"
           value={newTodoText}
           onChangeText={setNewTodoText}

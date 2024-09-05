@@ -71,7 +71,7 @@ function Todos(): React.ReactElement {
       />
 
       <TextInput
-        style={styles.input}
+        style={theme === 'light' ? styles.input : styles.inputDark}
         placeholder="New List Title"
         value={newListTitle}
         onChangeText={setNewListTitle}
