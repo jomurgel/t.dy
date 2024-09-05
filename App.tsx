@@ -1,12 +1,13 @@
 import { NavigationContainer } from '@react-navigation/native'
 import { Provider } from 'react-redux'
-import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { ReactElement } from 'react'
+import { SafeAreaProvider } from 'react-native-safe-area-context'
 import AppStack from './src/components/AppStack'
+import AuthProvider from './src/providers/AuthProvider'
 import AuthStack from './src/components/AuthStack'
+import ThemeProvider from './src/providers/ThemeProvider'
 import store from './src/redux/store'
-import { AuthProvider, useAuth } from './src/providers/AuthProvider'
-import { ThemeProvider } from './src/providers/ThemeProvider'
+import useAuth from './src/hooks/useAuth'
 
 /**
  * Determines visibility of features based on user authentication.
