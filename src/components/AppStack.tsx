@@ -1,11 +1,12 @@
-import MainScreen from '../screens/Main';
-import SettingsScreen from '../screens/Settings';
-import { createStackNavigator } from '@react-navigation/stack';
-import { RootStackParamList } from '../../App';
+import { createStackNavigator } from '@react-navigation/stack'
+import MainScreen from '../screens/Main'
+import SettingsScreen from '../screens/Settings'
+import { RootStackParamList } from '../types/todos'
+import ListScreen from '../screens/Lists'
 
-const Stack = createStackNavigator<RootStackParamList>();
+const Stack = createStackNavigator<RootStackParamList>()
 
-const AppStack = () => {
+function AppStack() {
   return (
     <Stack.Navigator initialRouteName="Main">
       <Stack.Screen
@@ -18,7 +19,12 @@ const AppStack = () => {
         name="Settings"
         component={SettingsScreen}
       />
+      <Stack.Screen
+        options={{ headerShown: false }}
+        name="List"
+        component={ListScreen}
+      />
     </Stack.Navigator>
   )
 }
-export default AppStack;
+export default AppStack

@@ -1,12 +1,12 @@
-import LogInScreen from '../screens/LogIn';
-import SignUpScreen from '../screens/SignUp';
-import SplashScreen from '../screens/Splash';
-import { createStackNavigator } from '@react-navigation/stack';
-import { RootStackParamList } from '../../App';
+import { createStackNavigator } from '@react-navigation/stack'
+import LogInScreen from '../screens/LogIn'
+import SignUpScreen from '../screens/SignUp'
+import SplashScreen from '../screens/Splash'
+import { RootStackParamList } from '../types/todos'
 
-const Stack = createStackNavigator<RootStackParamList>();
+const Stack = createStackNavigator<RootStackParamList>()
 
-const AuthStack = () => {
+function AuthStack() {
   return (
     <Stack.Navigator initialRouteName="Splash">
       <Stack.Screen
@@ -28,4 +28,4 @@ const AuthStack = () => {
   )
 }
 
-export default AuthStack;
+export default AuthStack

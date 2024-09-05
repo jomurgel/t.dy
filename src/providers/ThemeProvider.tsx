@@ -7,7 +7,7 @@ import React, {
 } from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
-enum Theme {
+export enum Theme {
   LIGHT = 'light',
   DARK = 'dark',
 }

@@ -4,8 +4,6 @@ function config( api ) {
     presets: [
       'babel-preset-expo',
       '@babel/preset-typescript',
-      '@babel/preset-env',
-      '@babel/preset-react',
     ],
   }
 }

@@ -1,31 +1,34 @@
-import Button from '../components/Button';
-import React, { useContext} from 'react';
-import { LinearGradient } from 'expo-linear-gradient';
-import { RootStackParamList } from '../../App';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { StyleSheet, View, Text } from 'react-native';
-import { useAuth } from '../providers/AuthProvider';
-import ThemeContext from '../providers/ThemeProvider';
-import useThemeColors from '../hooks/useThemeColors';
+import React, { ReactElement, useContext } from 'react'
+import { LinearGradient } from 'expo-linear-gradient'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import { StackNavigationProp } from '@react-navigation/stack'
+import { StyleSheet, Text, ViewStyle } from 'react-native'
+import Button from '../components/Button'
+import themeStyles from '../lib/themeConfig'
+import useAuth from '../hooks/useAuth'
+import useThemeColors from '../hooks/useThemeColors'
+import { RootStackParamList } from '../types/todos'
+import { Theme, ThemeContext } from '../providers/ThemeProvider'
 
-type SettingsScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Settings'>;
+type SettingsScreenNavigationProp = StackNavigationProp<
+  RootStackParamList,
+  'Settings'
+>
 
 interface SettingsScreenProps {
-  navigation: SettingsScreenNavigationProp;
+  navigation: SettingsScreenNavigationProp
 }
 
-const SettingsScreen: React.FC<SettingsScreenProps> = ({ navigation }) => {
-
-  const { signOut } = useAuth();
+function SettingsScreen( { navigation } ): ReactElement<SettingsScreenProps> {
+  const { signOut } = useAuth()
   const themeColors = useThemeColors()
 
-  const {theme, toggleTheme} = useContext(ThemeContext);
+  const { theme, toggleTheme } = useContext( ThemeContext )
 
   const handleToggleTheme = () => {
-    const newTheme = theme === 'light' ? 'dark' : 'light';
-    toggleTheme(newTheme);
-  };
+    const newTheme = theme === Theme.LIGHT ? Theme.DARK : Theme.LIGHT
+    toggleTheme( newTheme )
+  }
 
   return (
     <LinearGradient
@@ -35,41 +38,32 @@ const SettingsScreen: React.FC<SettingsScreenProps> = ({ navigation }) => {
       }}
     >
       <SafeAreaView style={styles.container}>
-      <Text style={styles.logo}>Settings</Text>
-            <Button
-              title="Sign out"
-              onPress={() => {
-                signOut()
-                toggleTheme('light')
-              }}
-            />
-            <Button
-              title="Change Theme"
-              onPress={handleToggleTheme}
-            />
-            <Button
-              title="Back"
-              onPress={() => navigation.navigate('Main')}
-              type="secondary"
-            />
+        <Text style={theme === 'light' ? styles.title : styles.titleDark}>Settings</Text>
+        <Button
+          title="Sign out"
+          onPress={() => {
+            signOut()
+            toggleTheme( Theme.LIGHT )
+          }}
+        />
+        <Button title="Change Theme" onPress={handleToggleTheme} />
+        <Button
+          title="Back"
+          onPress={() => navigation.navigate( 'Main' )}
+          type="secondary"
+        />
       </SafeAreaView>
     </LinearGradient>
-  );
+  )
 }
 
-export default SettingsScreen;
+export default SettingsScreen
 
-// @todo: add to shared styles export.
-const yellow = '#ffcc00';
-const white = '#fff';
-const styles = StyleSheet.create({
+const styles = StyleSheet.create( {
   container: {
     flex: 1,
-    padding: 20,
+    padding: 16,
   },
-  logo: {
-      color: white,
-      fontSize: 48,
-      marginBottom: 25,
-  },
-});
+  title: themeStyles.title.light as ViewStyle,
+  titleDark: themeStyles.title.dark as ViewStyle,
+} )

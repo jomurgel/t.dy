@@ -1,20 +1,20 @@
-import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { RootStackParamList } from '../../App';
-import Todo from '../components/Todo'
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { LinearGradient } from 'expo-linear-gradient';
-import Button from '../components/Button';
-import useThemeColors from '../hooks/useThemeColors';
+import React, { ReactElement } from 'react'
+import { LinearGradient } from 'expo-linear-gradient'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import { StackNavigationProp } from '@react-navigation/stack'
+import { StyleSheet } from 'react-native'
+import { RootStackParamList } from '../types/todos'
+import useThemeColors from '../hooks/useThemeColors'
+import Todos from '../components/Todos'
+import Button from '../components/Button'
 
-type MainScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Main'>;
+type MainScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Main'>
 
 interface MainScreenProps {
-  navigation: MainScreenNavigationProp;
+  navigation: MainScreenNavigationProp
 }
 
-const MainScreen: React.FC<MainScreenProps> = ({ navigation }) => {
+function MainScreen( { navigation } ): ReactElement<MainScreenProps> {
   const themeColors = useThemeColors()
   return (
     <LinearGradient
@@ -24,23 +24,21 @@ const MainScreen: React.FC<MainScreenProps> = ({ navigation }) => {
       }}
     >
       <SafeAreaView style={styles.container}>
-        <Todo />
+        <Todos />
         <Button
           title="Settings"
-          onPress={() => navigation.navigate('Settings')}
+          onPress={() => navigation.navigate( 'Settings' )}
           type="back"
         />
       </SafeAreaView>
     </LinearGradient>
-  );
+  )
 }
 
-export default MainScreen;
+export default MainScreen
 
-// @todo: add to shared styles export.
-const yellow = 'rgba(246,215,148,0.5)';
-const styles = StyleSheet.create({
+const styles = StyleSheet.create( {
   container: {
     flex: 1,
-  }
-});
+  },
+} )
