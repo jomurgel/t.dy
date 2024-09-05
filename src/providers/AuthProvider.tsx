@@ -1,76 +1,84 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react';
-import supabase from '../utils/supabaseClient';
-import { Session, User } from '@supabase/supabase-js';
+import React, {
+  createContext, useState, useMemo, useCallback, ReactNode,
+} from 'react'
+import { Session, User } from '@supabase/supabase-js'
+import supabase from '../lib/supabaseClient'
+import { AuthContextType } from '../types/auth'
 
-type AuthContextType = {
-  user: User | null;
-  session: Session | null;
-  error: Error | null;
-  signUpNewUser: (email: string, name: string, password: string) => Promise<void>;
-  signInWithEmail: (email: string, password: string) => Promise<void>;
-  signOut: () => Promise<void>
-  loading: boolean;
-};
+export const AuthContext = createContext<AuthContextType | undefined>( undefined )
 
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
+function AuthProvider( { children }: { children: ReactNode } ) {
+  const [ user, setUser ] = useState<User | null>( null )
+  const [ session, setSession ] = useState<Session | null>( null )
+  const [ error, setError ] = useState<Error | null>( null )
+  const [ loading, setLoading ] = useState<boolean>( false )
 
-export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [user, setUser] = useState<User | null>(null);
-  const [session, setSession] = useState<Session | null>(null);
-  const [error, setError] = useState<Error | null>(null);
-  const [loading, setLoading] = useState(Boolean);
-
-  async function signUpNewUser(email, name, password) {
-    setLoading(true);
-    const { data, error: err } = await supabase.auth.signUp({
+  /**
+   * Callback to sign up a new user in supabase.
+   */
+  const signUpNewUser = useCallback( async ( email: string, name: string, password: string ) => {
+    setLoading( true )
+    const { data, error: err } = await supabase.auth.signUp( {
       email,
       password,
       options: {
         data: {
           full_name: name,
-        }
+        },
       },
-    })
+    } )
 
-    setUser(data.user);
-    setSession(data.session);
-    setError(err);
-    setLoading(false);
-  }
+    setUser( data.user )
+    setSession( data.session )
+    setError( err )
+    setLoading( false )
+  }, [] )
 
-  async function signInWithEmail(email, password) {
-    setLoading(true);
-    const { data, error: err } = await supabase.auth.signInWithPassword({
+  /**
+   * Callback for signing in a new user in supabse.
+   */
+  const signInWithEmail = useCallback( async ( email: string, password: string ) => {
+    setLoading( true )
+    const { data, error: err } = await supabase.auth.signInWithPassword( {
       email,
       password,
-    });
+    } )
 
-    setUser(data.user);
-    setSession(data.session);
-    setError(err);
-    setLoading(false);
-  }
+    setUser( data.user )
+    setSession( data.session )
+    setError( err )
+    setLoading( false )
+  }, [] )
 
-  async function signOut() {
+  /**
+   * Callback to trigger a user session signout on supabase.
+   */
+  const signOut = useCallback( async () => {
     const { error: err } = await supabase.auth.signOut()
 
-    setUser(null);
-    setSession(null);
-    setError(err);
-  }
+    setUser( null )
+    setSession( null )
+    setError( err )
+  }, [] )
+
+  /**
+   * Context value. Memoized to avoid uneceesary rerenders.
+   */
+  const contextValue = useMemo( () => ( {
+    loading,
+    user,
+    session,
+    error,
+    signUpNewUser,
+    signInWithEmail,
+    signOut,
+  } ), [ loading, user, session, error, signUpNewUser, signInWithEmail, signOut ] )
 
   return (
-    <AuthContext.Provider value={{ loading, user, session, error, signUpNewUser, signInWithEmail, signOut }}>
+    <AuthContext.Provider value={contextValue}>
       {children}
     </AuthContext.Provider>
-  );
-};
+  )
+}
 
-export const useAuth = () => {
-  const context = useContext(AuthContext);
-
-  if (context === undefined) {
-    throw new Error('useAuth must be used within an AuthProvider');
-  }
-  return context;
-};
+export default AuthProvider
