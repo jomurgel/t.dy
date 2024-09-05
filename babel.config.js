@@ -1,6 +1,8 @@
-module.exports = function (api) {
-  api.cache(true);
+function config( api ) {
+  api.cache( true )
   return {
-    presets: ['babel-preset-expo', '@babel/preset-typescript'],
-  };
-};
+    presets: [ 'babel-preset-expo', '@babel/preset-typescript' ],
+  }
+}
+
+module.exports = config

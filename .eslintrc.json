@@ -4,21 +4,35 @@
     "eslint:recommended",
     "plugin:react/recommended",
     "plugin:@typescript-eslint/recommended",
-    "plugin:react-native/recommended",
     "airbnb",
-    "airbnb/hooks",
-    "prettier",
-    "plugin:prettier/recommended"
+    "airbnb/hooks"
   ],
   "overrides": [
     {
-      "files": ["*.json"],
+      "files": [
+        "*.json"
+      ],
       "rules": {
         "no-unused-expressions": "off",
-        "@typescript-eslint/no-unused-expressions": "off"
+        "@typescript-eslint/no-unused-expressions": "off",
+        "quote-props": "off",
+        "quotes": "off",
+        "comma-dangle": "off"
       }
     }
   ],
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [
+          ".js",
+          ".jsx",
+          ".ts",
+          ".tsx"
+        ]
+      }
+    }
+  },
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaVersion": 2021,
@@ -32,8 +46,7 @@
     "react-native",
     "@typescript-eslint",
     "import",
-    "jsx-a11y",
-    "prettier"
+    "jsx-a11y"
   ],
   "env": {
     "browser": true,
@@ -41,9 +54,63 @@
     "react-native/react-native": true
   },
   "rules": {
-    "react/jsx-filename-extension": [1, { "extensions": [".tsx", ".ts"] }],
+    "react/jsx-filename-extension": [
+      1,
+      {
+        "extensions": [
+          ".tsx",
+          ".ts"
+        ]
+      }
+    ],
     "import/extensions": "off",
     "react/react-in-jsx-scope": "off",
-    "no-use-before-define": "off"
+    "semi": [
+      "error",
+      "never"
+    ],
+    "space-in-parens": [
+      "error",
+      "always"
+    ],
+    "react/no-unescaped-entities": "off",
+    "quotes": [
+      "error",
+      "single",
+      {
+        "allowTemplateLiterals": true
+      }
+    ],
+    "comma-dangle": [
+      "error",
+      "always-multiline"
+    ],
+    "array-bracket-spacing": [
+      "error",
+      "always",
+      {
+        "singleValue": false
+      }
+    ],
+    "import/no-extraneous-dependencies": [
+      "off",
+      {
+        "devDependencies": false,
+        "optionalDependencies": false,
+        "peerDependencies": false
+      }
+    ],
+    "react/prop-types": "off",
+    "no-use-before-define": [
+      "error",
+      {
+        "functions": true,
+        "classes": true,
+        "variables": false,
+        "allowNamedExports": false
+      }
+    ],
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": "error"
   }
 }

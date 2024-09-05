@@ -1,4 +1,4 @@
-import 'dotenv/config';
+import 'dotenv/config'
 
 export default {
   expo: {
@@ -12,24 +12,24 @@ export default {
     splash: {
       image: './assets/splash.png',
       resizeMode: 'contain',
-      backgroundColor: '#ffffff'
+      backgroundColor: '#ffffff',
     },
     ios: {
-      supportsTablet: true
+      supportsTablet: true,
     },
     android: {
       adaptiveIcon: {
         foregroundImage: './assets/adaptive-icon.png',
-        backgroundColor: '#ffffff'
-      }
+        backgroundColor: '#ffffff',
+      },
     },
     web: {
-      favicon: './assets/favicon.png'
+      favicon: './assets/favicon.png',
     },
     extra: {
       GITHUB_CLIENT: process.env.GITHUB_CLIENT,
       SUPABASE_KEY: process.env.SUPABASE_KEY,
-      SUPABASE_CALLBACK: process.env.SUPABASE_CALLBACK
-    }
-  }
+      SUPABASE_CALLBACK: process.env.SUPABASE_CALLBACK,
+    },
+  },
 }
