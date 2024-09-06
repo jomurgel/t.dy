@@ -8,5 +8,5 @@ module.exports = {
   testMatch: [
     '**/*.test.ts?(x)',
   ],
-  testEnvironment: 'node',
+  testEnvironment: 'jsdom',
 }
