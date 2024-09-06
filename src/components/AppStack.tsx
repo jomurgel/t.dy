@@ -1,3 +1,4 @@
+import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
 import MainScreen from '../screens/Main'
 import SettingsScreen from '../screens/Settings'

@@ -43,6 +43,7 @@
   },
   "plugins": [
     "react",
+    "testing-library",
     "react-native",
     "@typescript-eslint",
     "import",

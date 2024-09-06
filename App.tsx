@@ -1,6 +1,6 @@
+import React, { ReactElement } from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { Provider } from 'react-redux'
-import { ReactElement } from 'react'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import AppStack from './src/components/AppStack'
 import AuthProvider from './src/providers/AuthProvider'

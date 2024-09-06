@@ -1,9 +1,12 @@
 module.exports = {
   preset: 'jest-expo',
+  moduleFileExtensions: [ 'js', 'jsx', 'json', 'ts', 'tsx' ],
   transform: {
-    '^.+\\.tsx?$': ['babel-jest'],
+    '^.+\\.(js|jsx|ts|tsx)$': 'babel-jest',
   },
   testPathIgnorePatterns: [ '/node_modules/', '/android/', '/ios/' ],
-  testEnvironment: 'jsdom',
-  moduleFileExtensions: [ 'js', 'jsx', 'ts', 'tsx' ],
+  testMatch: [
+    '**/*.test.ts?(x)',
+  ],
+  testEnvironment: 'node',
 }
